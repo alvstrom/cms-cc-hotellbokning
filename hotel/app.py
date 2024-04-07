@@ -18,7 +18,7 @@ conn = psycopg.connect(db_url, autocommit=True, row_factory=dict_row)
 app = Flask(__name__)
 CORS(app) # Tillåt cross-origin requests
 
-roomsTEMP=[
+rooms=[
     { 'number': 101, 'type': "single"},
     { 'number': 202, 'type': "double"}, 
     { 'number': 303, 'type': "suite"} 
