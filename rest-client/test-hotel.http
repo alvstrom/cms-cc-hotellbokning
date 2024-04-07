@@ -1,6 +1,13 @@
 @apiURL = {{$dotenv WEBBKOMM_API}}:8382
 
+GET {{apiURL}}/test
+
+###
+
 GET {{apiURL}}/rooms
+
+
+
 
 ### POST skapa nytt rum
 

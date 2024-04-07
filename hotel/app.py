@@ -1,16 +1,38 @@
+import os, psycopg
+from psycopg.rows import dict_row
 from flask import Flask, request
 from flask_cors import CORS 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 PORT=8382
+
+db_url = os.environ.get("DB_URL")
+print(db_url)
+print (os.environ.get("FOO"))
+
+conn = psycopg.connect(db_url, autocommit=True, row_factory=dict_row)
+
 
 app = Flask(__name__)
 CORS(app) # Tillåt cross-origin requests
 
-rooms =[
+roomsTEMP=[
     { 'number': 101, 'type': "single"},
     { 'number': 202, 'type': "double"}, 
     { 'number': 303, 'type': "suite"} 
 ]
+
+@app.route("/test")
+def dbtest():
+    with conn.cursor() as cur:
+        cur.execute("SELECT * FROM people")
+        rows = cur.fetchall()
+        return rows
+         
+        
+    
 
 @app.route("/")
 def info():
