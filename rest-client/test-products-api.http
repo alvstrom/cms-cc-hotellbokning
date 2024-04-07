@@ -1,0 +1,43 @@
+
+@apiURL = {{$dotenv PRODUCTS_API}}:8382
+
+### GET alla produkter 
+
+GET {{apiURL}} 
+
+###GET en produkt
+
+GET {{apiURL}}/1001
+
+##POST skapa en produkt
+
+POST {{apiURL}}/
+Content-Type: application/json
+
+{
+    "name": "Shoes",
+    "price": 69.9
+}
+
+### PUT uppdateera en produkt
+
+PUT {{apiURL}}/1002
+Content-Type: application/json
+
+{
+    "name": "Fedora",
+    "price": 50
+}
+
+### PATCH uppdateera en produkt
+
+PATCH {{apiURL}}/1001
+Content-Type: application/json
+
+{
+    "price": 40.5
+}
+
+### DELETE radera en produkt
+
+DELETE {{apiURL}}/1004
