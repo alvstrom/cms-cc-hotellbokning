@@ -6,52 +6,42 @@ PORT=8382
 app = Flask(__name__)
 CORS(app) # Tillåt cross-origin requests
 
+rooms =[
+    { 'number': 101, 'type': "single"},
+    { 'number': 202, 'type': "double"}, 
+    { 'number': 303, 'type': "suite"} 
+]
+
 @app.route("/")
 def info():
-    return {
-        "Hotel API, endpoints /rooms, /bookings"
+    return  "Hotel API, endpoints /rooms, /bookings"
         
-    } 
+    
 
-@app.route("/test", methods=['GET', 'POST'])  
-def test():
+@app.route("/rooms", methods=['GET', 'POST'])  
+def rooms_endpoint():
     if request.method == 'POST':
-        #skapa rad i databasen, returnera ny id..
-        new_id = 555
-
+        request_body = request.get_json()
+        print(request_body)
+        rooms.append(request_body)
         return {
-            'msg' : f"DU skapade en ny rad i databasen, id är{new_id}",
-            'method': request.method
+            'msg' : f"DU skapade ett nytt rum, id{len(rooms)-1}",
+
         }
          
          
     else: 
+        return rooms
             
-        return {
-            'msg' : "TESTING!",
-            'method': request.method
-        }
+        
 
 
-@app.route("/test/<int:id>", methods=['GET', 'PUT', 'DELETE', 'PATCH'])
-def testId(id):
+@app.route("/rooms/<int:id>", methods=['GET', 'PUT', 'DELETE', 'PATCH'])
+def one_room_endpoint(id):
     if request.method == 'GET':
-        return {
-            'msg' : f"här får du id: {id}",
-            'method': request.method
-        }
-    if request.method == 'PUT' or request.method == 'PATCH':
-        return {
-            'msg' : f"Du uppdaterar id: {id}",
-            'method': request.method
-        }
-    if request.method == 'DELETE':
-        return {
-            'msg' : f"Du tar bort id: {id}",
-            'method': request.method
-        }
-
-
+        return rooms[id]
+        
+    
 @app.route("/ip")
 def ip():
     ip = request.remote_addr
