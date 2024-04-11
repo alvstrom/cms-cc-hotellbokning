@@ -44,9 +44,11 @@ def bookings():
     if request.method == 'POST':
         request_body = request.get_json()
         print(request_body)
+        #skapa rad i hotel_booking med sql INSERT INTO...
         return {
             "msg": "Apin Svarar!",
-            "request_body": request_body}   
+            "request_body": request_body
+            }   
     
 
 
