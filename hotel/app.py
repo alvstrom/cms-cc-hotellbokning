@@ -42,7 +42,11 @@ def info():
 @app.route("/bookings, methods=['GET', 'POST']")
 def bookings():
     if request.method == 'POST':
-         return {"skapa ny bokning"}        
+        request_body = request.get_json()
+        print(request_body)
+        return {
+            "msg": "Apin Svarar!",
+            "request_body": request_body}   
     
 
 

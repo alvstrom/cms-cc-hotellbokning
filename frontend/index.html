@@ -10,23 +10,6 @@
 </head>
 
 <body>
-    <select id="room">
-        <option> --Välj rum--</option>
-    </select>
-
-
-    <script>
-        const API_URL = "https://vm2208.kaj.pouta.csc.fi:8382"
-
-        async function getRooms() {
-            resp = await fetch(API_URL);
-            rooms = await resp.json();
-
-            console.log(rooms);
-        }
-        getRooms();
-
-    </script>
 
 
 </body>
