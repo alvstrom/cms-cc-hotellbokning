@@ -38,6 +38,14 @@ def dbtest():
 def info():
     return  "Hotel API, endpoints /rooms, /bookings"
         
+
+@app.route("/bookings, methods=['GET', 'POST']")
+def bookings():
+    if request.method == 'POST':
+         return {"skapa ny bokning"}        
+    
+
+
     
 
 @app.route("/rooms", methods=['GET', 'POST'])  
@@ -53,16 +61,22 @@ def rooms_endpoint():
          
          
     else: 
-        return rooms
-            
+        with conn.cursor() as cur:   
+            cur.execute("SELECT * FROM hotel_room ORDER BY room_number")
+            rows = cur.fetchall()
+            return rows     
         
 
 
 @app.route("/rooms/<int:id>", methods=['GET', 'PUT', 'DELETE', 'PATCH'])
 def one_room_endpoint(id):
     if request.method == 'GET':
-        return rooms[id]
-        
+            with conn.cursor() as cur:   
+                        cur.execute("""SELECT *
+                                     FROM hotel_room
+                                        WHERE id = %s""", [id,])
+                        return cur.fetchone()
+            
     
 @app.route("/ip")
 def ip():
